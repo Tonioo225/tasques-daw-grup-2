@@ -1,0 +1,33 @@
+I. Actualización e instalación
+Actualizamos Ubuntu e instalamos Apache, PHP 8.3 y MySQL.
+sudo apt update && sudo apt upgrade -y
+sudo apt install apache2 -y
+sudo apt install php8.3 libapache2-mod-php8.3 -y
+sudo apt install mysql-server -y
+sudo mysql_secure_installation
+Comprobamos que Apache y MySQL están activos con systemctl status y verificamos PHP con php -v.
+
+II. Configuración de MySQL
+Accedemos a MySQL con sudo mysql, configuramos la contraseña de root y ejecutamos FLUSH PRIVILEGES. Comprobamos el acceso con mysql -u root -p e instalamos los módulos adicionales de PHP.
+
+III. Creación del VirtualHost
+Creamos el directorio /var/www/proves.daw/public_html y un archivo index.php con phpinfo().
+Configuramos el VirtualHost en /etc/apache2/sites-available/proves.daw.conf y añadimos el dominio a /etc/hosts.
+sudo a2ensite proves.daw.conf
+sudo systemctl reload apache2
+Al acceder a proves.daw, aparece la información de PHP.
+
+IV. Instalación de phpMyAdmin
+sudo apt install phpmyadmin -y
+sudo apt install php8.3-mbstring -y
+ sudo systemctl restart apache2
+Comprobamos que podemos administrar MySQL desde su interfaz web.
+
+V. Página web y conexión entre ordenadores
+Sustituimos el archivo PHP de prueba por una página personalizada. Después, creamos el sitio pc5.daw, configuramos su VirtualHost y añadimos las IP de los compañeros al archivo /etc/hosts.
+Comprobamos que podemos visitar sus páginas y consultar los accesos a nuestro servidor:
+sudo tail -f /var/log/apache2/pc5_access.log
+
+VI. Configuración de HTTPS
+Activamos SSL con sudo a2enmod ssl y generamos un certificado autofirmado de 365 días mediante OpenSSL.
+Configuramos el VirtualHost para redirigir HTTP (puerto 80) a HTTPS (puerto 443), añadimos las rutas del certificado y reiniciamos Apache.
