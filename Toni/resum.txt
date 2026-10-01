@@ -31,3 +31,7 @@ sudo tail -f /var/log/apache2/pc5_access.log
 VI. Configuración de HTTPS
 Activamos SSL con sudo a2enmod ssl y generamos un certificado autofirmado de 365 días mediante OpenSSL.
 Configuramos el VirtualHost para redirigir HTTP (puerto 80) a HTTPS (puerto 443), añadimos las rutas del certificado y reiniciamos Apache.
+
+
+
+Aquest fitxer es el resum rapit de com instalar apache2
